@@ -25,7 +25,6 @@
 - (void) takeOff:(CDVInvokedUrlCommand*)command;
 - (void) setOptions:(CDVInvokedUrlCommand*)command;
 - (void) passCheckpoint:(CDVInvokedUrlCommand*)command;
-- (void) openFeedbackView:(CDVInvokedUrlCommand*)command;
 - (void) submitFeedback:(CDVInvokedUrlCommand*)command;
 - (void) setDeviceIdentifier:(CDVInvokedUrlCommand*)command;
 - (void) setDeviceIdentifierUUID:(CDVInvokedUrlCommand*)command;

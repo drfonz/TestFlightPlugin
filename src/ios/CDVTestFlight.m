@@ -123,14 +123,6 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) openFeedbackView:(CDVInvokedUrlCommand*)command
-{
-    [TestFlight openFeedbackView];
-    
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
 - (void) submitFeedback:(CDVInvokedUrlCommand*)command
 {
     NSArray* arguments = command.arguments;
