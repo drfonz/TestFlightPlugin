@@ -16,10 +16,6 @@
     <platform name="ios">
         <!-- Only for Cordova 2.2.0 -->
         <plugins-plist key="TestFlightSDK" string="CDVTestFlight" />
-
-        <config-file target="config.xml" parent="/*/plugins">
-            <plugin name="TestFlightSDK" value="CDVTestFlight"/>
-        </config-file>
         
         <!-- feature tag in config.xml -->
         <config-file target="config.xml" parent="/widget">

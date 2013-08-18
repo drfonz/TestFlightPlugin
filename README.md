@@ -4,6 +4,17 @@ created by Shazron Abdullah
 
 [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html) except for the TestFlight1.1 SDK that is under **src/ios/TestFlight1.1**
 
+##For Cordova 3.0.x:##
+
+To add this plugin just type:
+```phonegap local plugin add https://github.com/dabeck/TestFlightPlugin.git```
+			
+To remove this plugin type:
+```phonegap local plugin remove com.testflightapp.cordova.plugin```
+
+
+##For older versions of Cordova:##
+
 Follows the [Cordova Plugin spec](https://github.com/apache/cordova-plugman/blob/master/plugin_spec.md), so that it works with [Plugman](https://github.com/apache/cordova-plugman), or you can install it manually below.
  
 1. Add the TestFlight SDK 1.1 files **(libTestFlight.a, and TestFlight.h)** in Xcode (add as a group)
@@ -90,13 +101,6 @@ and errors can only be gleaned from the run console, so check that for errors.
          */
         tf.remoteLog(successCallback, failureCallback, 'message');
     
-        /*
-         Opens a feeback window that is not attached to a checkpoint
-     
-         @param successCallback function
-         @param failureCallback function
-         */
-        tf.openFeedbackView(successCallback, failureCallback);
 
         /*
           Submits custom feedback to the site. Sends the data in feedback to the site. 

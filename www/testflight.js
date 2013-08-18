@@ -103,16 +103,6 @@ cordova.define("cordova/plugin/testflightsdk", function(require, exports, module
 	    exec(successCallback, failureCallback, this.serviceName, "remoteLog", [ message ]);
 	};
 
-	/*
-	 Opens a feedback window that is not attached to a checkpoint
- 
-	 @param successCallback function
-	 @param failureCallback function
-	 */
-	TestFlight.prototype.openFeedbackView = function(successCallback, failureCallback) {
-	    exec(successCallback, failureCallback, this.serviceName, "openFeedbackView", []);
-	};
-
 
     /*
       Submits custom feedback to the site. Sends the data in feedback to the site. 
