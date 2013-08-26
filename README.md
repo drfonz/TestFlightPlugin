@@ -7,7 +7,7 @@ created by Shazron Abdullah
 ##For Cordova 3.0.x:##
 
 To add this plugin just type:
-```phonegap local plugin add https://github.com/dabeck/TestFlightPlugin.git```
+```phonegap local plugin add https://github.com/shazron/TestFlightPlugin.git```
 			
 To remove this plugin type:
 ```phonegap local plugin remove com.testflightapp.cordova.plugin```
