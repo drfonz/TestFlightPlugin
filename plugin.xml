@@ -25,6 +25,8 @@
         </config-file>
 
         <header-file src="src/ios/TestFlight.h" />
+        <header-file src="src/ios/TestFlight+AsyncLogging.h" />
+        <header-file src="src/ios/TestFlight+ManualSessions.h" />
         <header-file src="src/ios/CDVTestFlight.h"/>
         
         <source-file src="src/ios/CDVTestFlight.m" />
