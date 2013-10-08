@@ -30,4 +30,8 @@
 - (void) setDeviceIdentifierUUID:(CDVInvokedUrlCommand*)command;
 - (void) remoteLog:(CDVInvokedUrlCommand*)command;
 
+- (void) remoteLogAsync:(CDVInvokedUrlCommand*)command;
+- (void) manuallyStartSession:(CDVInvokedUrlCommand*)command;
+- (void) manuallyEndSession:(CDVInvokedUrlCommand*)command;
+
 @end

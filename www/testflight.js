@@ -16,25 +16,7 @@
  specific language governing permissions and limitations
  under the License.
  */
- 
-/*
- TestFlight Plugin for Apache Cordova.
- Created by Shazron Abdullah
- 
- 1. Include the TestFlight SDK files in Xcode (follow their instructions)
- 2. Add CDVTestFlight.h and .m in Xcode
- 3. Add testflight.js to your www folder, and reference it in a script tag after your cordova.js
- 4. In Cordova.plist, under the 'Plugins' key, add a new row: key is "TestFlightSDK" and the value is "CDVTestFlight"
- 5. In Cordova.plist, under the 'ExternalHosts' key, add a new value "testflightapp.com"
- 
- The plugin's JavaScript functions are called after getting the plugin object thus:
- 
-     var tf = cordova.require("cordova/plugin/testflightsdk");
-     tf.takeoff(win, fail, "some_team_token");
- 
- See the functions below (and the TestFlight SDK docs) for usage. Unfortunately all of TestFlight's SDK functions return void,
- and errors can only be gleaned from the run console, so check that for errors.
- */
+
 cordova.define("cordova/plugin/testflightsdk", function(require, exports, module) {
  	var exec = require('cordova/exec');
 
@@ -93,7 +75,7 @@ cordova.define("cordova/plugin/testflightsdk", function(require, exports, module
 	};
 
 	/*
-	 Remote logging
+	 Remote logging (synchronous)
 
 	 @param successCallback function
 	 @param failureCallback function
@@ -103,6 +85,17 @@ cordova.define("cordova/plugin/testflightsdk", function(require, exports, module
 	    exec(successCallback, failureCallback, this.serviceName, "remoteLog", [ message ]);
 	};
 
+	/*
+	 Remote logging (async) - note that you may lose logs during a crash if you use this.
+
+	 @param successCallback function
+	 @param failureCallback function
+	 @param message string
+	 */
+	TestFlight.prototype.remoteLogAsync = function(successCallback, failureCallback, message) {
+	    exec(successCallback, failureCallback, this.serviceName, "remoteLogAsync", [ message ]);
+	};
+               
 
     /*
       Submits custom feedback to the site. Sends the data in feedback to the site. 
@@ -115,9 +108,8 @@ cordova.define("cordova/plugin/testflightsdk", function(require, exports, module
 	};
 	
 	/*
-     Sets the Device Identifier. 
-     The SDK no longer obtains the device unique identifier. This method should only be
-     used during testing so that you can identify a testers test data with them. 
+     Sets your own Device Identifier.
+
      If you do not provide the identifier you will still see all session data, with
      checkpoints and logs, but the data will be anonymized.
      
@@ -128,13 +120,35 @@ cordova.define("cordova/plugin/testflightsdk", function(require, exports, module
 	};
 	
 	/*
-     If app is compiled on DEBUG, sets the Device Identifier from actual UUID. 
+     Sets the device identifier as the identifierForVendor.
 
-     Otherwise, does nothing
+	 @param successCallback function
+	 @param failureCallback function
     */
 	TestFlight.prototype.setDeviceIdentifierUUID = function(successCallback, failureCallback) {
 	    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifierUUID", [ ]);
 	};
+               
+	/*
+	 Manually start a session.
+
+	 @param successCallback function
+	 @param failureCallback function
+	 */
+	TestFlight.prototype.manuallyStartSession = function(successCallback, failureCallback) {
+	    exec(successCallback, failureCallback, this.serviceName, "manuallyStartSession", [ ]);
+	};
+
+    /*
+	 Manually end a session.
+
+	 @param successCallback function
+	 @param failureCallback function
+	 */
+	TestFlight.prototype.manuallyEndSession = function(successCallback, failureCallback) {
+	    exec(successCallback, failureCallback, this.serviceName, "manuallyEndSession", [ ]);
+	};
+
 
  	var testflight = new TestFlight();
  	module.exports = testflight;
