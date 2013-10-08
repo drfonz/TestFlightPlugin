@@ -5,6 +5,7 @@
 
     <name>TestFlight SDK Plugin</name>
     <description>Cordova plugin for the TestFlight SDK 2.0</description>
+	<license>Apache 2.0 License</license>
 	
     <engines>
         <engine name="cordova" version=">=2.9.0" />
