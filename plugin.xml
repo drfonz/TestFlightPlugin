@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.testflightapp.cordova-plugin"
-    version="1.0.0">
+    version="2.0.0">
 
-    <name>TestFlight SDK</name>
+    <name>TestFlight SDK Plugin</name>
+    <description>Cordova plugin for the TestFlight SDK 2.0</description>
 	
     <engines>
-        <engine name="cordova" version=">=2.2.0" />
+        <engine name="cordova" version=">=2.9.0" />
     </engines>
+    
+    <js-module src="www/testflight.js" name="TestFlight">
+        <clobbers target="TestFlight" />
+    </js-module>
 	
     <access origin="*.testflightapp.com" />
-    <asset src="www/testflight.js" target="plugins/testflight.js" />
 
     <!-- ios -->
     <platform name="ios">
-        <!-- Only for Cordova 2.2.0 -->
-        <plugins-plist key="TestFlightSDK" string="CDVTestFlight" />
-        
-        <!-- feature tag in config.xml -->
+
         <config-file target="config.xml" parent="/widget">
           <feature name="TestFlightSDK">
             <param name="ios-package" value="CDVTestFlight"/>
@@ -33,11 +34,6 @@
         <source-file src="src/ios/libTestFlight.a" framework="true"/>
         
         <framework src="libz.dylib" />
-        
-                <info>
-Add this script tag to your index.html:
-    &lt;script src="plugins/testflight.js"&gt;&lt;/script&gt;
-	    </info>
-
     </platform>
+    
 </plugin>

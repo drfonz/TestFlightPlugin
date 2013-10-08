@@ -17,140 +17,138 @@
  under the License.
  */
 
-cordova.define("cordova/plugin/testflightsdk", function(require, exports, module) {
- 	var exec = require('cordova/exec');
+var argscheck = require('cordova/argscheck'),
+utils = require('cordova/utils'),
+exec = require('cordova/exec');
 
-	var TestFlight = function() {
-	    this.serviceName = "TestFlightSDK";
-	};
+var TestFlight = function() {
+    this.serviceName = "TestFlightSDK";
+};
 
-	/*
-	 Add custom environment information
-	 If you want to track a user name from your application you can add it here
+/*
+ Add custom environment information
+ If you want to track a user name from your application you can add it here
+
+ @param successCallback function
+ @param failureCallback function
+ @param key string
+ @param information string
+ */
+TestFlight.prototype.addCustomEnvironmentInformation = function(successCallback, failureCallback, key, information) {
+    exec(successCallback, failureCallback, this.serviceName, "addCustomEnvironmentInformation", 
+                  [ key, information]);
+};
+
+/*
+ Starts a TestFlight session
+
+ @param successCallback function
+ @param failureCallback function
+ @param teamToken string
+ */
+TestFlight.prototype.takeOff = function(successCallback, failureCallback, teamToken) {
+    exec(successCallback, failureCallback, this.serviceName, "takeOff", [ teamToken ]);
+};
+
+/*
+ Sets custom options
+
+ @param successCallback function
+ @param failureCallback function
+ @param options object i.e { reinstallCrashHandlers : true }
+ */
+TestFlight.prototype.setOptions = function(successCallback, failureCallback, options) {
+    if (!(null !== options && 'object' == typeof(options))) {
+        options = {};
+    }
+    exec(successCallback, failureCallback, this.serviceName, "setOptions", [ options ]);
+};
+
+/*
+ Track when a user has passed a checkpoint after the flight has taken off. Eg. passed level 1, posted high score
+
+ @param successCallback function
+ @param failureCallback function
+ @param checkpointName string
+ */
+TestFlight.prototype.passCheckpoint = function(successCallback, failureCallback, checkpointName) {
+    exec(successCallback, failureCallback, this.serviceName, "passCheckpoint", [ checkpointName ]);
+};
+
+/*
+ Remote logging (synchronous)
+
+ @param successCallback function
+ @param failureCallback function
+ @param message string
+ */
+TestFlight.prototype.remoteLog = function(successCallback, failureCallback, message) {
+    exec(successCallback, failureCallback, this.serviceName, "remoteLog", [ message ]);
+};
+
+/*
+ Remote logging (async) - note that you may lose logs during a crash if you use this.
+
+ @param successCallback function
+ @param failureCallback function
+ @param message string
+ */
+TestFlight.prototype.remoteLogAsync = function(successCallback, failureCallback, message) {
+    exec(successCallback, failureCallback, this.serviceName, "remoteLogAsync", [ message ]);
+};
+           
+
+/*
+  Submits custom feedback to the site. Sends the data in feedback to the site. 
+  This is to be used as the method to submit feedback from custom feedback forms.
  
-	 @param successCallback function
-	 @param failureCallback function
-	 @param key string
-	 @param information string
-	 */
-	TestFlight.prototype.addCustomEnvironmentInformation = function(successCallback, failureCallback, key, information) {
-	    exec(successCallback, failureCallback, this.serviceName, "addCustomEnvironmentInformation", 
-	                  [ key, information]);
-	};
+  @param feedback Your users feedback, method does nothing if feedback is nil
+*/
+TestFlight.prototype.submitFeedback = function(successCallback, failureCallback, feedback) {
+    exec(successCallback, failureCallback, this.serviceName, "submitFeedback", [ feedback ]);
+};
 
-	/*
-	 Starts a TestFlight session
+/*
+ Sets your own Device Identifier.
+
+ If you do not provide the identifier you will still see all session data, with
+ checkpoints and logs, but the data will be anonymized.
  
-	 @param successCallback function
-	 @param failureCallback function
-	 @param teamToken string
-	 */
-	TestFlight.prototype.takeOff = function(successCallback, failureCallback, teamToken) {
-	    exec(successCallback, failureCallback, this.serviceName, "takeOff", [ teamToken ]);
-	};
+  @param deviceIdentifer The current devices device identifier
+*/
+TestFlight.prototype.setDeviceIdentifier = function(successCallback, failureCallback, deviceIdentifier) {
+    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifier", [ deviceIdentifier ]);
+};
 
-	/*
-	 Sets custom options
- 
-	 @param successCallback function
-	 @param failureCallback function
-	 @param options object i.e { reinstallCrashHandlers : true }
-	 */
-	TestFlight.prototype.setOptions = function(successCallback, failureCallback, options) {
-	    if (!(null !== options && 'object' == typeof(options))) {
-	        options = {};
-	    }
-	    exec(successCallback, failureCallback, this.serviceName, "setOptions", [ options ]);
-	};
+/*
+ Sets the device identifier as the identifierForVendor.
 
-	/*
-	 Track when a user has passed a checkpoint after the flight has taken off. Eg. passed level 1, posted high score
- 
-	 @param successCallback function
-	 @param failureCallback function
-	 @param checkpointName string
-	 */
-	TestFlight.prototype.passCheckpoint = function(successCallback, failureCallback, checkpointName) {
-	    exec(successCallback, failureCallback, this.serviceName, "passCheckpoint", [ checkpointName ]);
-	};
+ @param successCallback function
+ @param failureCallback function
+*/
+TestFlight.prototype.setDeviceIdentifierUUID = function(successCallback, failureCallback) {
+    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifierUUID", [ ]);
+};
+           
+/*
+ Manually start a session.
 
-	/*
-	 Remote logging (synchronous)
+ @param successCallback function
+ @param failureCallback function
+ */
+TestFlight.prototype.manuallyStartSession = function(successCallback, failureCallback) {
+    exec(successCallback, failureCallback, this.serviceName, "manuallyStartSession", [ ]);
+};
 
-	 @param successCallback function
-	 @param failureCallback function
-	 @param message string
-	 */
-	TestFlight.prototype.remoteLog = function(successCallback, failureCallback, message) {
-	    exec(successCallback, failureCallback, this.serviceName, "remoteLog", [ message ]);
-	};
+/*
+ Manually end a session.
 
-	/*
-	 Remote logging (async) - note that you may lose logs during a crash if you use this.
-
-	 @param successCallback function
-	 @param failureCallback function
-	 @param message string
-	 */
-	TestFlight.prototype.remoteLogAsync = function(successCallback, failureCallback, message) {
-	    exec(successCallback, failureCallback, this.serviceName, "remoteLogAsync", [ message ]);
-	};
-               
-
-    /*
-      Submits custom feedback to the site. Sends the data in feedback to the site. 
-      This is to be used as the method to submit feedback from custom feedback forms.
-     
-      @param feedback Your users feedback, method does nothing if feedback is nil
-    */
-	TestFlight.prototype.submitFeedback = function(successCallback, failureCallback, feedback) {
-	    exec(successCallback, failureCallback, this.serviceName, "submitFeedback", [ feedback ]);
-	};
-	
-	/*
-     Sets your own Device Identifier.
-
-     If you do not provide the identifier you will still see all session data, with
-     checkpoints and logs, but the data will be anonymized.
-     
-      @param deviceIdentifer The current devices device identifier
-    */
-	TestFlight.prototype.setDeviceIdentifier = function(successCallback, failureCallback, deviceIdentifier) {
-	    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifier", [ deviceIdentifier ]);
-	};
-	
-	/*
-     Sets the device identifier as the identifierForVendor.
-
-	 @param successCallback function
-	 @param failureCallback function
-    */
-	TestFlight.prototype.setDeviceIdentifierUUID = function(successCallback, failureCallback) {
-	    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifierUUID", [ ]);
-	};
-               
-	/*
-	 Manually start a session.
-
-	 @param successCallback function
-	 @param failureCallback function
-	 */
-	TestFlight.prototype.manuallyStartSession = function(successCallback, failureCallback) {
-	    exec(successCallback, failureCallback, this.serviceName, "manuallyStartSession", [ ]);
-	};
-
-    /*
-	 Manually end a session.
-
-	 @param successCallback function
-	 @param failureCallback function
-	 */
-	TestFlight.prototype.manuallyEndSession = function(successCallback, failureCallback) {
-	    exec(successCallback, failureCallback, this.serviceName, "manuallyEndSession", [ ]);
-	};
+ @param successCallback function
+ @param failureCallback function
+ */
+TestFlight.prototype.manuallyEndSession = function(successCallback, failureCallback) {
+    exec(successCallback, failureCallback, this.serviceName, "manuallyEndSession", [ ]);
+};
 
 
- 	var testflight = new TestFlight();
- 	module.exports = testflight;
-	
- });
+module.exports = TestFlight;
