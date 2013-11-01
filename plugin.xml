@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    id="com.testflightapp.cordova-plugin"
-    version="2.0.0">
+        id="com.testflightapp.cordova-plugin"
+        version="2.0.0">
 
-    <name>TestFlight SDK Plugin</name>
-    <description>Cordova plugin for the TestFlight SDK 2.0</description>
-	<license>Apache 2.0 License</license>
-	
-    <engines>
-        <engine name="cordova" version=">=2.9.0" />
-    </engines>
-    
-    <js-module src="www/testflight.js" name="TestFlight">
-        <clobbers target="TestFlight" />
-    </js-module>
-	
-    <access origin="*.testflightapp.com" />
+  <name>TestFlight SDK Plugin</name>
+  <description>Cordova plugin for the TestFlight SDK 2.0</description>
+  <license>Apache 2.0 License</license>
 
-    <!-- ios -->
-    <platform name="ios">
+  <engines>
+    <engine name="cordova" version=">=2.9.0" />
+  </engines>
 
-        <config-file target="config.xml" parent="/widget">
-          <feature name="TestFlightSDK">
-            <param name="ios-package" value="CDVTestFlight"/>
-          </feature>
-        </config-file>
+  <js-module src="www/testflight.js" name="TestFlight">
+    <clobbers target="TestFlight" />
+  </js-module>
 
-        <header-file src="src/ios/TestFlight.h" />
-        <header-file src="src/ios/TestFlight+AsyncLogging.h" />
-        <header-file src="src/ios/TestFlight+ManualSessions.h" />
-        <header-file src="src/ios/CDVTestFlight.h"/>
-        
-        <source-file src="src/ios/CDVTestFlight.m" />
-        <source-file src="src/ios/libTestFlight.a" framework="true"/>
-        
-        <framework src="libz.dylib" />
-    </platform>
-    
+  <!--<access origin="*.testflightapp.com" />-->
+  <access origin="*" />
+
+  <!-- ios -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/widget">
+      <feature name="TestFlightSDK">
+        <param name="ios-package" value="CDVTestFlight"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/TestFlight.h" />
+    <header-file src="src/ios/TestFlight+AsyncLogging.h" />
+    <header-file src="src/ios/TestFlight+ManualSessions.h" />
+    <header-file src="src/ios/CDVTestFlight.h"/>
+
+    <source-file src="src/ios/CDVTestFlight.m" />
+    <source-file src="src/ios/libTestFlight.a" framework="true"/>
+
+    <framework src="libz.dylib" />
+  </platform>
+
+  <platform name="android">
+    <source-file src="src/android/com/testflightapp/plugin/TestFlightSDK.java" target-dir="src/com/testflightapp/plugin" />
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="TestFlightSDK">
+        <param name="android-package" value="com.testflightapp.plugin.TestFlightSDK" />
+      </feature>
+    </config-file>
+    <source-file src="src/android/TestFlight1.2/TestFlightLib.jar" target-dir="libs"/>
+  </platform>
 </plugin>
